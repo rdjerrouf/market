@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:market.ViewModels"
+             x:Class="market.Views.ListingsPage">
+    <ContentPage.BindingContext>
+        <local:ListingsViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label Text="Listings Page" VerticalOptions="Center" HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
