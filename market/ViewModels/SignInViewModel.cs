@@ -1,54 +1,38 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using market.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
-using market.Services;  // Ensure this using directive is included
+using System.Threading.Tasks;
 
 namespace market.ViewModels
 {
     public partial class SignInViewModel : ObservableObject
     {
-        private string _username = string.Empty;
-        public string Username
-        {
-            get => _username;
-            set => SetProperty(ref _username, value);
-        }
-
-        private string _password = string.Empty;
-        public string Password
-        {
-            get => _password;
-            set => SetProperty(ref _password, value);
-        }
-
-        public ICommand SignInCommand { get; }
-        public ICommand NavigateToRegisterCommand { get; }
-
         private readonly AuthService _authService;
 
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string ErrorMessage { get; set; } = string.Empty;
+
+        // Parameterless constructor for XAML binding
+        public SignInViewModel() { }
+
+        // Constructor for dependency injection
         public SignInViewModel(AuthService authService)
         {
             _authService = authService;
-            SignInCommand = new RelayCommand(OnSignIn);
-            NavigateToRegisterCommand = new RelayCommand(OnNavigateToRegister);
         }
 
-        private async void OnSignIn()
+        [RelayCommand]
+        public async Task SignIn()
         {
-            bool success = await _authService.SignInAsync(Username, Password);
-            if (success)
+            if (await _authService.SignInAsync(Username, Password))
             {
-                await Shell.Current.GoToAsync("//MainPage");
+                ErrorMessage = string.Empty; // Handle successful sign-in
             }
             else
             {
-                // Show error message
+                ErrorMessage = "Invalid username or password."; // Handle unsuccessful sign-in
             }
-        }
-
-        private async void OnNavigateToRegister()
-        {
-            await Shell.Current.GoToAsync("RegistrationPage");
         }
     }
 }

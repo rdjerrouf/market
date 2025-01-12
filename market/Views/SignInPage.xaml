@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:market.ViewModels"
              x:Class="market.Views.SignInPage">
-    <StackLayout Padding="20">
-        <Label Text="Sign In" FontSize="Large" />
+
+    <ContentPage.BindingContext>
+        <viewModels:SignInViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
         <Entry Placeholder="Username" Text="{Binding Username}" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
         <Button Text="Sign In" Command="{Binding SignInCommand}" />
-        <Button Text="Register" Command="{Binding NavigateToRegisterCommand}" />
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
     </StackLayout>
 </ContentPage>

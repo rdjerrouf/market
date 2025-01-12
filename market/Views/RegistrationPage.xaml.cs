@@ -8,7 +8,11 @@ namespace market.Views
         public RegistrationPage()
         {
             InitializeComponent();
-            BindingContext = new RegistrationViewModel(new AuthService());
+            
         }
     }
+
+
+   
 }
+

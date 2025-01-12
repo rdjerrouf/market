@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:market.ViewModels"
              x:Class="market.Views.RegistrationPage">
-    <StackLayout Padding="20">
-        <Label Text="Register" FontSize="Large" />
+
+    <ContentPage.BindingContext>
+        <viewModels:RegistrationViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
         <Entry Placeholder="Username" Text="{Binding Username}" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
-        <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" />
+        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
+        <Entry Placeholder="Email" Text="{Binding Email}" />
         <Button Text="Register" Command="{Binding RegisterCommand}" />
-        <Button Text="Back to Sign In" Command="{Binding NavigateToSignInCommand}" />
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
     </StackLayout>
 </ContentPage>

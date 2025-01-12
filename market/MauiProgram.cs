@@ -1,8 +1,8 @@
-﻿using Microsoft.Maui;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using market.Data;
+using Microsoft.EntityFrameworkCore;
 using market.Services;
-using market.ViewModels;
 
 namespace market
 {
@@ -18,10 +18,14 @@ namespace market
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            // Register services and view models
-            builder.Services.AddSingleton<AuthService>();
-            builder.Services.AddTransient<SignInViewModel>();
-            builder.Services.AddTransient<RegistrationViewModel>();
+            // Register services and DbContext
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite("Data Source=market.db")); // Example using SQLite
+
+            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<ItemService>();
+            builder.Services.AddScoped<MessageService>();
+            builder.Services.AddScoped<UserService>();
 
             return builder.Build();
         }

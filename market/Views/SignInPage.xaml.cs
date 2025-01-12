@@ -8,7 +8,7 @@ namespace market.Views
         public SignInPage()
         {
             InitializeComponent();
-            BindingContext = new SignInViewModel(new AuthService());
+          
         }
     }
 }

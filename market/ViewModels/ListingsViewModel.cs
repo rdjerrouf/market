@@ -10,8 +10,8 @@ namespace market.ViewModels
         {
             Items = new ObservableCollection<Item>
             {
-                new Item { Id = 1, Name = "Item 1", Description = "Description 1", Price = 10.0m },
-                new Item { Id = 2, Name = "Item 2", Description = "Description 2", Price = 20.0m }
+                new Item { Id = 1, Name = "Item 1", Description = "Description 1" },
+                new Item { Id = 2, Name = "Item 2", Description = "Description 2" }
             };
         }
     }
