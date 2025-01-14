@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
+    x:Class="market.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:market.Views"
-    x:Class="market.AppShell"
-    Shell.FlyoutBehavior="Flyout"
-    Title="market">
+    xmlns:views="clr-namespace:market.Views">
 
-    <TabBar>
-      
-
-        <ShellContent
-            Title="Listings"
-            ContentTemplate="{DataTemplate views:ListingsPage}"
-            Route="ListingsPage" />
-
-        <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate views:ProfilePage}"
-            Route="ProfilePage" />
-
-        <ShellContent
-            Title="Sign In"
-            ContentTemplate="{DataTemplate views:SignInPage}"
-            Route="SignInPage" />
-
-        <ShellContent
-            Title="Register"
-            ContentTemplate="{DataTemplate views:RegistrationPage}"
-            Route="RegistrationPage" />
-    </TabBar>
-
+    <ShellContent
+        Title="Sign In"
+        ContentTemplate="{DataTemplate views:SignInPage}"
+        Route="SignInPage" />
 </Shell>

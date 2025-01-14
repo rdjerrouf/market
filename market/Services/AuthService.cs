@@ -18,21 +18,26 @@ namespace market.Services
             _context = context;
         }
 
-        public async Task<bool> SignInAsync(string username, string password)
+        public async Task<bool> SignInAsync(string email, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return false;
 
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+            // First find user by email
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
             if (user == null)
-                return false;
+            {
+                // If not found by email, try username
+                user = await _context.Users.SingleOrDefaultAsync(u => u.Username == email);
+                if (user == null)
+                    return false;
+            }
 
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return false;
 
             return true;
         }
-
         public async Task<bool> RegisterAsync(string username, string password, string email)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))

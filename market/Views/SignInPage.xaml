@@ -1,16 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:market.ViewModels"
              x:Class="market.Views.SignInPage">
 
-    <ContentPage.BindingContext>
-        <viewModels:SignInViewModel />
-    </ContentPage.BindingContext>
+    <VerticalStackLayout Spacing="25" 
+                        Padding="30,0" 
+                        VerticalOptions="Center">
 
-    <StackLayout Padding="10">
-        <Entry Placeholder="Username" Text="{Binding Username}" />
-        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
-        <Button Text="Sign In" Command="{Binding SignInCommand}" />
-        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
-    </StackLayout>
+        <Entry Placeholder="Email"
+               Text="{Binding Email}"
+               Keyboard="Email"/>
+
+        <Entry Placeholder="Password"
+               Text="{Binding Password}"
+               IsPassword="True"/>
+
+        <Button Text="Login"
+                Command="{Binding SignInCommand}"/>
+
+        <Label Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               HorizontalOptions="Center"/>
+
+        <Label Text="Don't have an account?"
+               HorizontalOptions="Center"/>
+
+        <Button Text="Create an Account"
+        Command="{Binding NavigateToRegisterCommand}"
+        BackgroundColor="Transparent"
+        TextColor="Blue"
+        BorderWidth="1"/>
+    </VerticalStackLayout>
 </ContentPage>

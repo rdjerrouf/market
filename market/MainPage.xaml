@@ -7,15 +7,15 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            
+
             <Label
                 Text="Hello, FROM MAIN PAGE!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
-           
 
-            
+
+
         </VerticalStackLayout>
     </ScrollView>
 

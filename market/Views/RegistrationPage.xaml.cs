@@ -1,18 +1,13 @@
-using market.Services;
-using market.ViewModels;  // Ensure this using directive is included
 
+using market.ViewModels; 
 namespace market.Views
 {
     public partial class RegistrationPage : ContentPage
     {
-        public RegistrationPage()
+        public RegistrationPage(Dlala.ViewModels.RegistrationViewModel viewModel)
         {
             InitializeComponent();
-            
+            BindingContext = viewModel;
         }
     }
-
-
-   
 }
-

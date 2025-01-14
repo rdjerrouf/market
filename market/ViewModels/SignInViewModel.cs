@@ -1,7 +1,6 @@
-﻿using market.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
+using market.Services;
 
 namespace market.ViewModels
 {
@@ -9,29 +8,61 @@ namespace market.ViewModels
     {
         private readonly AuthService _authService;
 
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string ErrorMessage { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string email = string.Empty;
 
-        // Parameterless constructor for XAML binding
-        public SignInViewModel() { }
+        [ObservableProperty]
+        private string password = string.Empty;
 
-        // Constructor for dependency injection
+        [ObservableProperty]
+        private string errorMessage = string.Empty;
+
+        // Remove the parameterless constructor
         public SignInViewModel(AuthService authService)
         {
             _authService = authService;
         }
 
         [RelayCommand]
-        public async Task SignIn()
+        public async Task SignInAsync()
         {
-            if (await _authService.SignInAsync(Username, Password))
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = string.Empty; // Handle successful sign-in
+                ErrorMessage = "Please enter both email and password";
+                return;
             }
-            else
+
+            try
             {
-                ErrorMessage = "Invalid username or password."; // Handle unsuccessful sign-in
+                if (await _authService.SignInAsync(Email, Password))
+                {
+                    // Sign in successful
+                    ErrorMessage = string.Empty;
+                    await Shell.Current.GoToAsync("///MainPage");
+                }
+                else
+                {
+                    ErrorMessage = "Invalid email or password";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"An error occurred: {ex.Message}";
+            }
+        }
+
+        [RelayCommand]
+        private async Task NavigateToRegister()
+        {
+            try
+            {
+                await Shell.Current.DisplayAlert("Debug", "Starting navigation...", "OK");
+                await Shell.Current.GoToAsync("RegistrationPage");
+                await Shell.Current.DisplayAlert("Debug", "Navigation completed", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
             }
         }
     }
