@@ -1,22 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="market.MainPage">
+             x:Class="market.Views.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <StackLayout>
 
-            <Label
-                Text="Hello, FROM MAIN PAGE!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+        <!-- Search Bar -->
+        <SearchBar Placeholder="Search" 
+                   TextChanged="OnSearchBarTextChanged"
+                   x:Name="searchBar" />
 
+        <!-- Top Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="10">
+            <Button Text="For Sale" Command="{Binding ForSaleCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/sellicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="Jobs" Command="{Binding JobsCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/jobsicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="Services" Command="{Binding ServicesCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/servicesicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="Rentals" Command="{Binding RentalsCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/renticon.png" />
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
 
+        <!-- Main Content -->
+        <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}" />
+                        <!-- Add more item details here -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
+        <!-- Bottom Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Spacing="10">
+            <Button Text="Home" Command="{Binding HomeCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/homeicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="Inbox" Command="{Binding InboxCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/inboxicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="Post" Command="{Binding PostCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/addicon.png" />
+                </Button.ImageSource>
+            </Button>
+            <Button Text="My Listings" Command="{Binding MyListingsCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="Resources/Images/listicon.png" />
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </StackLayout>
 
 </ContentPage>

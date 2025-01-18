@@ -9,5 +9,15 @@
         Title="Sign In"
         ContentTemplate="{DataTemplate views:SignInPage}"
         Route="SignInPage" />
-   
+
+    <ShellContent
+        Title="Main"
+        ContentTemplate="{DataTemplate views:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Register"
+        ContentTemplate="{DataTemplate views:RegistrationPage}"
+        Route="RegistrationPage" />
+
 </Shell>
