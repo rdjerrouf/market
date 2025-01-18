@@ -10,28 +10,12 @@
                    TextChanged="OnSearchBarTextChanged"
                    x:Name="searchBar" />
 
-        <!-- Top Buttons -->
+        <!-- Top ImageButtons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="10">
-            <Button Text="For Sale" Command="{Binding ForSaleCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/sellicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="Jobs" Command="{Binding JobsCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/jobsicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="Services" Command="{Binding ServicesCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/servicesicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="Rentals" Command="{Binding RentalsCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/renticon.png" />
-                </Button.ImageSource>
-            </Button>
+            <ImageButton Source="Resources/Images/sellicon.png" Command="{Binding ForSaleCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/jobsicon.png" Command="{Binding JobsCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/servicesicon.png" Command="{Binding ServicesCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/renticon.png" Command="{Binding RentalsCommand}" WidthRequest="50" HeightRequest="50" />
         </StackLayout>
 
         <!-- Main Content -->
@@ -46,28 +30,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Bottom Buttons -->
+        <!-- Bottom ImageButtons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Spacing="10">
-            <Button Text="Home" Command="{Binding HomeCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/homeicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="Inbox" Command="{Binding InboxCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/inboxicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="Post" Command="{Binding PostCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/addicon.png" />
-                </Button.ImageSource>
-            </Button>
-            <Button Text="My Listings" Command="{Binding MyListingsCommand}">
-                <Button.ImageSource>
-                    <FileImageSource File="Resources/Images/listicon.png" />
-                </Button.ImageSource>
-            </Button>
+            <ImageButton Source="Resources/Images/homeicon.png" Command="{Binding HomeCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/inboxicon.png" Command="{Binding InboxCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/addicon.png" Command="{Binding PostCommand}" WidthRequest="50" HeightRequest="50" />
+            <ImageButton Source="Resources/Images/listicon.png" Command="{Binding MyListingsCommand}" WidthRequest="50" HeightRequest="50" />
         </StackLayout>
 
     </StackLayout>
