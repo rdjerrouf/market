@@ -9,20 +9,17 @@ namespace Dlala.ViewModels
         private readonly AuthService _authService;
 
         [ObservableProperty]
-        private string username = string.Empty;
+        private string email = string.Empty;
 
         [ObservableProperty]
         private string password = string.Empty;
-
-        [ObservableProperty]
-        private string email = string.Empty;
 
         [ObservableProperty]
         private string errorMessage = string.Empty;
 
         public RegistrationViewModel(AuthService authService)
         {
-            _authService = authService;
+            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
         private bool ValidateInput()
@@ -36,18 +33,14 @@ namespace Dlala.ViewModels
 
             if (!IsValidEmail(Email))
             {
+                ErrorMessage = "Invalid email format";
                 return false;
             }
 
             // Password validation
             if (!IsValidPassword(Password))
             {
-                return false;
-            }
-
-            // Username validation
-            if (!IsValidUsername(Username))
-            {
+                ErrorMessage = "Password must be at least 8 characters long, contain upper and lower case letters, a digit, and a special character";
                 return false;
             }
 
@@ -107,26 +100,6 @@ namespace Dlala.ViewModels
             return true;
         }
 
-        private static bool IsValidUsername(string username)
-        {
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                return false;
-            }
-
-            if (username.Length < 3)
-            {
-                return false;
-            }
-
-            if (!username.All(ch => char.IsLetterOrDigit(ch)))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         [RelayCommand]
         private async Task Register()
         {
@@ -137,14 +110,14 @@ namespace Dlala.ViewModels
 
             try
             {
-                if (await _authService.RegisterAsync(Username, Password, Email))
+                if (await _authService.RegisterAsync(Email, Password))
                 {
                     await Shell.Current.DisplayAlert("Success", "Registration successful!", "OK");
                     await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
-                    ErrorMessage = "Registration failed. Username might already be taken.";
+                    ErrorMessage = "Registration failed. Email might already be taken.";
                 }
             }
             catch (Exception ex)

@@ -15,50 +15,48 @@ namespace market.Services
 
         public AuthService(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<bool> SignInAsync(string email, string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-                return false;
-
-            // First find user by email
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
-            if (user == null)
             {
-                // If not found by email, try username
-                user = await _context.Users.SingleOrDefaultAsync(u => u.Username == email);
-                if (user == null)
-                    return false;
+                return false;
             }
 
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
                 return false;
+            }
 
             return true;
         }
-        public async Task<bool> RegisterAsync(string username, string password, string email)
-        {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
-                return false;
 
-            if (await _context.Users.AnyAsync(u => u.Username == username))
+        public async Task<bool> RegisterAsync(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
                 return false;
+            }
+
+            if (await _context.Users.AnyAsync(u => u.Email == email))
+            {
+                return false;
+            }
 
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             var user = new User
             {
-                Username = username,
+                Email = email,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Email = email
+                PasswordSalt = passwordSalt
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
             return true;
         }
 

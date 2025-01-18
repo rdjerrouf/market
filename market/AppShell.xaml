@@ -9,4 +9,5 @@
         Title="Sign In"
         ContentTemplate="{DataTemplate views:SignInPage}"
         Route="SignInPage" />
+   
 </Shell>
