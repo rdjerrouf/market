@@ -32,12 +32,10 @@ namespace market
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<SignInViewModel>();
             builder.Services.AddTransient<SignInPage>();
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            
-            {
-                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "market.db");
-                options.UseSqlite($"Data Source={dbPath}");
-            });
+
+            // Register the new NotificationService and NotificationViewModel
+            builder.Services.AddScoped<NotificationService>();
+            builder.Services.AddScoped<NotificationViewModel>();
 
             return builder.Build();
         }
