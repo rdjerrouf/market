@@ -4,6 +4,8 @@
              xmlns:viewModels="clr-namespace:market.ViewModels"
              x:Class="market.Views.SignInPage">
 
+
+
     <VerticalStackLayout Spacing="25" 
                         Padding="30,0" 
                         VerticalOptions="Center">

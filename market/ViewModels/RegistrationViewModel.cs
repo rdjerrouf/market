@@ -2,8 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using market.Services;
 
-namespace Dlala.ViewModels
+namespace market.ViewModels
 {
+
     public partial class RegistrationViewModel : ObservableObject
     {
         private readonly AuthService _authService;
@@ -103,8 +104,10 @@ namespace Dlala.ViewModels
         [RelayCommand]
         private async Task Register()
         {
+            Console.WriteLine("Register command started");
             if (!ValidateInput())
             {
+                Console.WriteLine("Input validation failed");
                 return;
             }
 
@@ -113,17 +116,21 @@ namespace Dlala.ViewModels
                 if (await _authService.RegisterAsync(Email, Password))
                 {
                     await Shell.Current.DisplayAlert("Success", "Registration successful!", "OK");
+                    Console.WriteLine("Register command successful");
                     await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
                     ErrorMessage = "Registration failed. Email might already be taken.";
+                    Console.WriteLine("Register command failed");
                 }
             }
             catch (Exception ex)
             {
                 ErrorMessage = $"An error occurred: {ex.Message}";
+                Console.WriteLine($"Register command error: {ex.Message}");
             }
         }
     }
 }
+

@@ -20,29 +20,40 @@ namespace market.Services
 
         public async Task<bool> SignInAsync(string email, string password)
         {
+            Console.WriteLine("SignInAsync started");
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
+                Console.WriteLine("Email or password is empty");
                 return false;
             }
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
-            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (user == null)// || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
+                Console.WriteLine("User not found");
                 return false;
             }
-
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                Console.WriteLine("Password verification failed");
+                return false;
+            }
+            Console.WriteLine("SignInAsync successful");
             return true;
         }
 
         public async Task<bool> RegisterAsync(string email, string password)
         {
+            Console.WriteLine("RegisterAsync started");
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
+                Console.WriteLine("Email or password is empty");
                 return false;
             }
 
             if (await _context.Users.AnyAsync(u => u.Email == email))
             {
+                Console.WriteLine("Email already exists");
                 return false;
             }
 
@@ -57,6 +68,7 @@ namespace market.Services
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            Console.WriteLine("RegisterAsync successful");
             return true;
         }
 
