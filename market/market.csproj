@@ -79,9 +79,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="Resources\Styles\Colors.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
       <MauiXaml Update="Views\ItemDetailPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
@@ -106,6 +103,10 @@
       <MauiXaml Update="Views\SignInPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Styles\" />
     </ItemGroup>
 
 </Project>
